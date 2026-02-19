@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cloudflared
+  name: cloudflared-deploayment
   namespace: cloudflared
 spec:
   replicas: 2
@@ -21,6 +21,9 @@ spec:
       containers:
         - image: cloudflare/cloudflared:latest
           name: cloudflared
+          envFrom:
+          - secretRef:
+              name: cloudflared-secret
           command:
             # Configures tunnel run parameters
             - cloudflared
